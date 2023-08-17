@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/racer/static/js/main.bf1707d9.js",
+    "index.html": "/racer/index.html",
+    "main.bf1707d9.js.map": "/racer/static/js/main.bf1707d9.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.bf1707d9.js"
+  ]
+}
