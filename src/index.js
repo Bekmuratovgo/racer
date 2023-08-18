@@ -6,7 +6,7 @@ import { setupStore } from './store/store';
 
 const store = setupStore();
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
+console.log('version 1.6');
 root.render(
   <Provider store={store}>
     <App />,

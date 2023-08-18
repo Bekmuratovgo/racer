@@ -6,7 +6,13 @@ export const getUsers = (page = 1) => async dispatch => {
   dispatch(tableSlice.actions.setLoading(true))
   try {
     const res = await axios(`${url}/?page=${page}`);
-    dispatch(tableSlice.actions.setUsersuccess(res.data.results.slice(0, 50)))
+    const data = res.data.results.slice(0, 50).map((item) => {
+      return {
+        ...item,
+        isSelected: false
+      }
+    })
+    dispatch(tableSlice.actions.setUsersuccess(data))
   } catch (error) {
     console.log(error, 'ERR');
   }

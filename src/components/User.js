@@ -9,12 +9,13 @@ const useStyles = makeStyles({
     width: '100%',
     height: '60px',
     fontFamily: 'sans-serif',
-    margin: '20px 0'
+    margin: '10px 0'
   },
   number: {
     fontSize: '18px',
     fontWeight: '600',
     width: '60px',
+    minWidth: '60px',
     textAlign: 'center',
   },
   selectedNumber: {
@@ -33,7 +34,11 @@ const useStyles = makeStyles({
   name: {
     margin: '0px 0px 3px 0',
     fontSize: '16px',
-    fontWeight: '500'
+    fontWeight: '500',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    minWidth: '150px'
   },
   speed: {
     color: '#6FA7E8',
@@ -46,14 +51,11 @@ const useStyles = makeStyles({
   time: {
     color: '#a3a3a3',
     fontSize: '15px',
-    margin: '3px 0 0px',
+    margin: '3px 0 0',
   },
   selectedTime: {
     color: '#FDB77A'
   },
-  selectedUser: {
-    border: '1px solid red',
-  }
 });
 
 export const User = ({ user, randomColor, selectedUser }) => {
@@ -74,7 +76,7 @@ export const User = ({ user, randomColor, selectedUser }) => {
         <span className={classes.speed}>
           <span className={classes.speed_time}>00:00.000</span> | {user.speed} км/ч</span>
         <p 
-          className={`${classes.time} ${selectedUser === user.id ? classes.selectedTime : classes.time}`}
+          className={`${classes.time} ${selectedUser === user.id ? classes.selectedTime : ''}`}
         > штрафное время 00:00.00</p>
       </div>
     </div>

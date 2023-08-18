@@ -9,10 +9,13 @@ import { generateRandomColor } from './utils';
 const useStyles = makeStyles({
   loading: {
     width: '100%',
+    height: '100vh',
     position: 'fixed',
+    top: '0',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    background: '#8f8f8f38'
   },
 })
 
@@ -21,44 +24,43 @@ export const App = () => {
   const dispatch = useDispatch();
   const { users, loading } = useSelector((state) => state.tableReducer);
   const [selectedUser, setSelectedUser] = useState();
-  const [pagination, setPagination] = useState(1);
 
-  const handleSelect = (id) => {
-    setSelectedUser(id);
-  }
+  let pagination = 1;
+
+  const handleScroll = async () => {
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.scrollY;
+
+    if (scrollTop + windowHeight >= documentHeight && !loading) {
+      pagination = pagination + 1
+      console.log(pagination, '1-CALL');
+      dispatch(getUsers(pagination));
+    }
+  };
 
   useEffect(() => {
-    dispatch(getUsers(pagination))
+    dispatch(getUsers())
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-  const handleScroll = () => {
-    const windowHeight = window.innerHeight;
-    const documentHeight = document.documentElement.scrollHeight;
-    const scrollTop = window.scrollY;
-
-    if (scrollTop + windowHeight >= documentHeight && !loading) {
-      dispatch(getUsers(pagination + 1));
-      setPagination((prev) => prev + 1);
-    }
-  };
   return (
     <div>
       {
         users?.map((item, index) => (
-          <User
-            key={index}
-            user={{ ...item, index: index + 1 }}
-            onClick={() => handleSelect(item.id)}
-            randomColor={generateRandomColor()}
-            selectedUser={selectedUser}
-          />
+          <div key={index} onClick={() => setSelectedUser(item.id)}>
+            <User
+              user={{ ...item, index: index + 1 }}
+              randomColor={generateRandomColor()}
+              selectedUser={selectedUser}
+            />
+          </div>
         ))
       }
-      {
+      {loading &&
         <div className={classes.loading}>
           <CircularProgress />
         </div>
