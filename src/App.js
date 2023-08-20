@@ -34,7 +34,6 @@ export const App = () => {
 
     if (scrollTop + windowHeight >= documentHeight && !loading) {
       pagination = pagination + 1
-      console.log(pagination, '1-CALL');
       dispatch(getUsers(pagination));
     }
   };
